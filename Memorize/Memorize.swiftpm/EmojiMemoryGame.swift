@@ -1,3 +1,10 @@
+//
+//  EmojiMemoryGame.swift
+//  Memorize
+//
+//  Created by CS193P Instructor on 03/29/21.
+//
+
 import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
@@ -27,5 +34,24 @@ class EmojiMemoryGame: ObservableObject {
     
     func restart() {
         model = EmojiMemoryGame.createMemoryGame()
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct EmojiMemoryGame_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }

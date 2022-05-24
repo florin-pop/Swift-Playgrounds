@@ -1,3 +1,10 @@
+//
+//  EmojiMemoryGameView.swift
+//  Memorize
+//
+//  Created by CS193P Instructor on 03/29/21.
+//
+
 import SwiftUI
 
 struct EmojiMemoryGameView: View {
@@ -10,7 +17,6 @@ struct EmojiMemoryGameView: View {
         ZStack(alignment: .bottom) {
             VStack {
                 gameBody
-                Spacer()
                 HStack {
                     restart
                     Spacer()
@@ -54,7 +60,7 @@ struct EmojiMemoryGameView: View {
                     .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                     .padding(4)
                     .transition(AnyTransition
-                        .asymmetric(insertion: .identity, removal: .scale))
+                                .asymmetric(insertion: .identity, removal: .scale))
                     .zIndex(zIndex(of: card))
                     .onTapGesture {
                         withAnimation  {
@@ -70,10 +76,10 @@ struct EmojiMemoryGameView: View {
         ZStack {
             ForEach(game.cards.filter(isUndealt)) { card in
                 CardView(card: card)
-                    .matchedGeometryEffect(id: card.id, in: dealingNamespace)
-                    .transition(AnyTransition
-                        .asymmetric(insertion: .opacity, removal: .identity))
-                    .zIndex(zIndex(of: card))
+                .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+                .transition(AnyTransition
+                            .asymmetric(insertion: .opacity, removal: .identity))
+                .zIndex(zIndex(of: card))
             }
         }
         .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
@@ -126,12 +132,12 @@ struct CardView: View {
                     if card.isConsumingBonusTime {
                         Pie(startAngle: Angle(degrees: 0 - 90),
                             endAngle: Angle(degrees: (1 - animatedBonusRemaining) * 360 - 90 ))
-                        .onAppear {
-                            animatedBonusRemaining = card.bonusRemaining
-                            withAnimation(.linear(duration: card.bonusTimeRemaining)) {
-                                animatedBonusRemaining = 0
+                            .onAppear {
+                                animatedBonusRemaining = card.bonusRemaining
+                                withAnimation(.linear(duration: card.bonusTimeRemaining)) {
+                                    animatedBonusRemaining = 0
+                                }
                             }
-                        }
                     } else {
                         Pie(startAngle: Angle(degrees: 0 - 90),
                             endAngle: Angle(degrees: (1 - card.bonusRemaining) * 360 - 90 ))
@@ -143,7 +149,7 @@ struct CardView: View {
                 Text(card.content)
                     .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
                     .animation(Animation.linear(duration: 1)
-                        .repeatForever(autoreverses: false))
+                                .repeatForever(autoreverses: false))
                     .font(Font.system(size: DrawingConstants.fontSize))
                     .scaleEffect(scale (thatFits: geometry.size))
             }
@@ -158,5 +164,26 @@ struct CardView: View {
     private struct DrawingConstants {
         static let fontScale:CGFloat = 0.7
         static let fontSize: CGFloat = 32
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        let game = EmojiMemoryGame()
+        game.choose(game.cards.first!)
+        return EmojiMemoryGameView(game: game)
+            .preferredColorScheme(.light)
     }
 }

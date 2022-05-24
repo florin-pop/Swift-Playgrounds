@@ -1,3 +1,10 @@
+//
+//  MemoryGame.swift
+//  Memorize
+//
+//  Created by CS193P Instructor on 03/29/21.
+//
+
 import Foundation
 import SwiftUI
 
@@ -8,7 +15,7 @@ struct MemoryGame <CardContent> where CardContent: Equatable {
         get {cards.indices.filter ({cards[$0].isFaceUp}).oneAndOnly}
         set {cards.indices.forEach {cards[$0].isFaceUp = ($0  == newValue)}}
     }
-    
+  
     mutating func choose (_ card: Card) {
         if let chosenIndex = cards.firstIndex(where: {$0.id == card.id}),
            !cards[chosenIndex].isFaceUp,
@@ -119,5 +126,12 @@ extension Array {
         } else {
             return nil
         }
+    }
+}
+
+
+struct MemoryGame_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }
